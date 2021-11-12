@@ -1,0 +1,73 @@
+name: 生成镜像
+on:
+  workflow_dispatch:
+    inputs:
+      brandNew:
+        description: 跳过拉取上次构建结果
+        required: false
+        default: ""
+  schedule:
+    - cron:  '50 8 * * *'
+  push:
+    branches:
+      - master
+
+env:
+  PROJECT_NAME: "k510_build_env"
+
+jobs:
+  cancel:
+    name: Cancel Previous Runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: cancel running workflows
+        timeout-minutes: 5
+        uses: GongT/cancel-previous-workflows@6dd7af8389c9434cc893fd33b58609e73db49fbe
+        env:
+          DELETE: "yes"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: "生成镜像"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "强制清理项目（如果有）"
+        timeout-minutes: 1
+        shell: bash
+        run: |
+          if [[ -e ".git" ]]; then
+            git reset --hard --recurse-submodule || true
+            git clean -ffdx || true
+            git submodule foreach bash -c "git clean -ffdx" || true
+          fi
+
+      - name: "获取代码"
+        uses: actions/checkout@v2
+        timeout-minutes: 1
+        with:
+          submodules: "recursive"
+          clean: true
+          fetch-depth: 2
+
+      - name: "初始化登录信息和基本环境"
+        shell: bash
+        timeout-minutes: 2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash ci/login.sh
+
+      - name: "从ghcr.io获取上次生成的镜像"
+        shell: bash
+        if: github.event.inputs.brandNew == ''
+        timeout-minutes: 1
+        run: podman pull "docker://ghcr.io/kendryte/$PROJECT_NAME"
+
+      - name: "运行构建过程"
+        shell: bash
+        timeout-minutes: 30
+        run: bash create.sh
+
+      - name: "发布镜像"
+        timeout-minutes: 5
+        shell: bash
+        run: podman push kendryte/k510_env:latest ghcr.io/kendryte/k510_env
