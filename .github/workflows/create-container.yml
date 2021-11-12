@@ -56,16 +56,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash ci/login.sh
 
-      - name: "从ghcr.io获取上次生成的镜像"
-        shell: bash
-        if: github.event.inputs.brandNew == ''
-        timeout-minutes: 1
-        run: podman pull "docker://ghcr.io/kendryte/$PROJECT_NAME"
+      # - name: "从ghcr.io获取上次生成的镜像"
+      #   shell: bash
+      #   if: github.event.inputs.brandNew == ''
+      #   timeout-minutes: 1
+      #   run: podman pull "docker://ghcr.io/kendryte/$PROJECT_NAME"
 
       - name: "运行构建过程"
         shell: bash
         timeout-minutes: 30
         run: bash create.sh
+
+      - name: "发布镜像"
+        timeout-minutes: 5
+        shell: bash
+        run: podman push kendryte/k510_env:latest ghcr.io/kendryte/k510_env
 
       - name: Create Release
         id: create_release
@@ -88,8 +93,3 @@ jobs:
           asset_path: k510_docker_env.tar.xz
           asset_name: 
           asset_content_type: application/octet-stream
-
-      - name: "发布镜像"
-        timeout-minutes: 5
-        shell: bash
-        run: podman push kendryte/k510_env:latest ghcr.io/kendryte/k510_env
