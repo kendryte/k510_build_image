@@ -16,16 +16,16 @@ env:
   PROJECT_NAME: "k510_build_env"
 
 jobs:
-  cancel:
-    name: Cancel Previous Runs
-    runs-on: ubuntu-latest
-    steps:
-      - name: cancel running workflows
-        timeout-minutes: 5
-        uses: GongT/cancel-previous-workflows@6dd7af8389c9434cc893fd33b58609e73db49fbe
-        env:
-          DELETE: "yes"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # cancel:
+  #   name: Cancel Previous Runs
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: cancel running workflows
+  #       timeout-minutes: 5
+  #       uses: GongT/cancel-previous-workflows@6dd7af8389c9434cc893fd33b58609e73db49fbe
+  #       env:
+  #         DELETE: "yes"
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     name: "生成镜像"
