@@ -8,8 +8,8 @@ RUN mkdir -p /opt/k510_buildroot /opt/build-cache \
 	&& rm -rf /var/lib/apt/lists/* /root/.cache \
 	&& wget -O- https://bootstrap.pypa.io/pip/2.7/get-pip.py | python \
 	&& python -m pip install pycryptodome --no-cache-dir \
-	&& pip3 install onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir \
-	&& pip3 install https://github.com/kendryte/nncase/releases/download/v1.0.0/nncase-1.0.0.20211029-cp38-cp38-manylinux_2_24_x86_64.whl --no-cache-dir
+	&& pip3 install onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 --no-cache-dir \
+		https://github.com/kendryte/nncase/releases/download/v1.0.0/nncase-1.0.0.20211029-cp38-cp38-manylinux_2_24_x86_64.whl --no-cache-dir
 
 ENV BR2_CCACHE=y BR2_CCACHE_DIR=/opt/build-cache CCACHE_MAXFILES=0 CCACHE_MAXSIZE=50G FORCE_UNSAFE_CONFIGURE=1
 
