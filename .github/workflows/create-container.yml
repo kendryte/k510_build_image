@@ -67,6 +67,28 @@ jobs:
         timeout-minutes: 30
         run: bash create.sh
 
+      - name: Create Release
+        id: create_release
+        uses: GongT/actions-recreate-release@0eccdfe77165640ce33239b47cae6ea3de465cc5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: latest
+          release_name: Latest
+          body: Auto build from ${{ github.sha }} (master)
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: k510_docker_env.tar.xz
+          asset_name: 
+          asset_content_type: application/octet-stream
+
       - name: "发布镜像"
         timeout-minutes: 5
         shell: bash
