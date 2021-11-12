@@ -9,10 +9,11 @@ RUN mkdir -p /opt/k510_buildroot /opt/build-cache \
 	&& apt-get install -y --no-install-recommends \
 		build-essential apt software-properties-common ccache file wget cpio dosfstools mtools unzip rsync bc ncurses-dev python python-dev libc6-i386 libc6-dev-i386 libncurses5:i386 \
 	&& add-apt-repository ppa:deadsnakes/ppa \
-	&& apt-get install -y --no-install-recommends python3.9 pip3.9 \
+	&& apt-get install -y --no-install-recommends python3.9 \
 	&& rm -rf /var/lib/apt/lists/* /root/.cache \
 	&& wget -O- https://bootstrap.pypa.io/pip/2.7/get-pip.py | python \
 	&& python -m pip install pycryptodome --no-cache-dir \
+	&& python -m ensurepip --upgrade --no-cache-dir \
 	&& pip3 install onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 nncase --no-cache-dir
 
 VOLUME /opt/k510_buildroot /opt/build-cache
