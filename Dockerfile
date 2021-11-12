@@ -13,7 +13,7 @@ RUN mkdir -p /opt/k510_buildroot /opt/build-cache \
 	&& rm -rf /var/lib/apt/lists/* /root/.cache \
 	&& wget -O- https://bootstrap.pypa.io/pip/2.7/get-pip.py | python \
 	&& python -m pip install pycryptodome --no-cache-dir \
-	&& python -m ensurepip --upgrade --no-cache-dir \
+	&& python3 -m ensurepip --upgrade --no-cache-dir \
 	&& pip3 install onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 nncase --no-cache-dir
 
 VOLUME /opt/k510_buildroot /opt/build-cache
