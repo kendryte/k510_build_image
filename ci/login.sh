@@ -18,4 +18,4 @@ chmod 0700 "$HOME/secrets"
 export REGISTRY_AUTH_FILE="$HOME/secrets/auth.json"
 echo "REGISTRY_AUTH_FILE=${REGISTRY_AUTH_FILE}" >>"$GITHUB_ENV"
 
-podman login "--username=$GITHUB_ACTOR" "--password=$GITHUB_TOKEN" ghcr.io
+podman login "--username=$GITHUB_ACTOR" "--password=$GITHUB_TOKEN" ghcr.io </dev/null
