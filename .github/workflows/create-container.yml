@@ -17,16 +17,16 @@ env:
 
 jobs:
   
-  # cancel:
-  #   name: Cancel Previous Runs
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: cancel running workflows
-  #       timeout-minutes: 5
-  #       uses: GongT/cancel-previous-workflows@6dd7af8389c9434cc893fd33b58609e73db49fbe
-  #       env:
-  #         DELETE: "yes"
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  cancel:
+    name: Cancel Previous Runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: cancel running workflows
+        timeout-minutes: 5
+        uses: GongT/cancel-previous-workflows@6dd7af8389c9434cc893fd33b58609e73db49fbe
+        env:
+          DELETE: "yes"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     name: "生成镜像"
@@ -57,11 +57,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash ci/login.sh
 
-      # - name: "从ghcr.io获取上次生成的镜像"
-      #   shell: bash
-      #   if: github.event.inputs.brandNew == ''
-      #   timeout-minutes: 1
-      #   run: podman pull "docker://ghcr.io/kendryte/$PROJECT_NAME"
+      - name: "从ghcr.io获取上次生成的镜像"
+        shell: bash
+        if: github.event.inputs.brandNew == ''
+        timeout-minutes: 1
+        run: podman pull "docker://ghcr.io/kendryte/$PROJECT_NAME"
 
       - name: "运行构建过程"
         shell: bash
