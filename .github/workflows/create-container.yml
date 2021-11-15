@@ -65,7 +65,7 @@ jobs:
       - name: "运行构建过程"
         shell: bash
         timeout-minutes: 5
-        run: podman build -t kendryte/k510_env:latest --volume "$(pwd):/opt/build" <./Dockerfile
+        run: podman build -t kendryte/k510_env:latest --volume "$(pwd):/opt/build" -f ./Dockerfile .
 
       - name: "发布镜像"
         timeout-minutes: 5
