@@ -61,7 +61,7 @@ jobs:
         shell: bash
         if: github.event.inputs.brandNew == ''
         timeout-minutes: 1
-        run: podman pull "docker://ghcr.io/kendryte/$PROJECT_NAME"
+        run: podman pull "docker://ghcr.io/kendryte/k510_env"
 
       - name: "运行构建过程"
         shell: bash
