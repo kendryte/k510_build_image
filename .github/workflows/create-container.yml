@@ -76,7 +76,8 @@ jobs:
         shell: bash
         timeout-minutes: 5
         run: |
-          podman save kendryte/k510_env:latest | xz >k510_docker_env.tar.xz
+          podman tag ghcr.io/kendryte/k510_env docker.io/kendryte/k510_env:latest
+          podman save docker.io/kendryte/k510_env:latest | xz >k510_docker_env.tar.xz
 
       - name: "创建 Release"
         id: create_release
