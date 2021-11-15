@@ -7,7 +7,7 @@ echo "create container with $ENGINE"
 
 cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
-"$ENGINE" build -t kendryte/k510_env:latest - <./Dockerfile
+"$ENGINE" build -t localhost/kendryte/k510_env:latest - <./Dockerfile
 
 echo "exporting binary..."
-"$ENGINE" save kendryte/k510_env:latest | xz >k510_docker_env.tar.xz
+"$ENGINE" save localhost/kendryte/k510_env:latest | xz >k510_docker_env.tar.xz

@@ -71,7 +71,7 @@ jobs:
       - name: "发布镜像"
         timeout-minutes: 5
         shell: bash
-        run: podman push kendryte/k510_env:latest ghcr.io/kendryte/k510_env
+        run: podman push localhost/kendryte/k510_env:latest ghcr.io/kendryte/k510_env
 
       - name: Create Release
         id: create_release
