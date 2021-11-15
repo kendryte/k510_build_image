@@ -54,7 +54,9 @@ jobs:
         timeout-minutes: 2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash ci/login.sh
+        run: |
+          bash ci/login.sh
+          bash ci/nncase.sh
 
       - name: "从ghcr.io获取上次生成的镜像"
         shell: bash
