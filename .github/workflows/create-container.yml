@@ -6,8 +6,8 @@ on:
         description: 跳过拉取上次构建结果
         required: false
         default: ""
-  schedule:
-    - cron:  '50 8 * * */7'
+  # schedule:
+  #   - cron:  '50 8 * * */7'
   push:
     branches:
       - master
@@ -16,7 +16,6 @@ env:
   PROJECT_NAME: "k510_build_env"
 
 jobs:
-  
   cancel:
     name: Cancel Previous Runs
     runs-on: ubuntu-latest
@@ -65,15 +64,21 @@ jobs:
 
       - name: "运行构建过程"
         shell: bash
-        timeout-minutes: 30
-        run: bash create.sh
+        timeout-minutes: 5
+        run: podman build -t kendryte/k510_env:latest - <./Dockerfile
 
       - name: "发布镜像"
         timeout-minutes: 5
         shell: bash
-        run: podman push localhost/kendryte/k510_env:latest ghcr.io/kendryte/k510_env
+        run: podman push kendryte/k510_env:latest ghcr.io/kendryte/k510_env
 
-      - name: Create Release
+      - name: "导出镜像"
+        shell: bash
+        timeout-minutes: 5
+        run: |
+          podman save kendryte/k510_env:latest | xz >k510_docker_env.tar.xz
+
+      - name: "创建 Release"
         id: create_release
         uses: GongT/actions-recreate-release@0eccdfe77165640ce33239b47cae6ea3de465cc5
         env:
@@ -85,7 +90,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
+      - name: "上传镜像文件"
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
