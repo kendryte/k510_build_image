@@ -74,7 +74,7 @@ jobs:
 
       - name: "导出镜像"
         shell: bash
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: |
           podman tag ghcr.io/kendryte/k510_env docker.io/kendryte/k510_env:latest
           podman save docker.io/kendryte/k510_env:latest | xz >k510_docker_env.tar.xz
