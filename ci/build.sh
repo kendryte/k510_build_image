@@ -9,7 +9,7 @@ chmod 0777 "$CACHE_ROOT/apt" "$CACHE_ROOT/apt-lists" "$CACHE_ROOT/python" "$CACH
 
 podman pull ubuntu:latest
 podman build \
-	-t kendryte/k510_env:latest \
+	-t ghcr.io/kendryte/k510_env:latest \
 	--volume "$CACHE_ROOT/apt:/var/cache/apt" \
 	--volume "$CACHE_ROOT/apt-lists:/var/lib/apt" \
 	--volume "$CACHE_ROOT/python:/root/.cache" \

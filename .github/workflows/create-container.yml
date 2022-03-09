@@ -58,11 +58,11 @@ jobs:
           bash ci/login.sh
           bash ci/nncase.sh
 
-      - name: "从ghcr.io获取上次生成的镜像"
-        shell: bash
-        if: github.event.inputs.brandNew == ''
-        timeout-minutes: 1
-        run: podman pull "docker://ghcr.io/kendryte/k510_env"
+      # - name: "从ghcr.io获取上次生成的镜像"
+      #   shell: bash
+      #   if: github.event.inputs.brandNew == ''
+      #   timeout-minutes: 1
+      #   run: podman pull "docker://ghcr.io/kendryte/k510_env"
 
       - name: "运行构建过程"
         shell: bash
@@ -72,7 +72,7 @@ jobs:
       - name: "发布镜像"
         timeout-minutes: 2
         shell: bash
-        run: podman push kendryte/k510_env:latest ghcr.io/kendryte/k510_env
+        run: podman push ghcr.io/kendryte/k510_env:latest docker://ghcr.io/kendryte/k510_env:latest
 
       # - name: "导出镜像"
       #   shell: bash
