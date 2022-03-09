@@ -2,17 +2,18 @@
 
 set -Eeuo pipefail
 
-mkdir -p "$HOME/cache/k510_buildroot/apt" \
-	"$HOME/cache/k510_buildroot/apt-lists" \
-	"$HOME/cache/k510_buildroot/python" \
-	"$HOME/cache/k510_buildroot/tmp"
+CACHE_ROOT="$HOME/cache/k510_buildroot"
 
+mkdir -p "$CACHE_ROOT/apt" "$CACHE_ROOT/apt-lists" "$CACHE_ROOT/python" "$CACHE_ROOT/tmp"
+chmod 0777 "$CACHE_ROOT/apt" "$CACHE_ROOT/apt-lists" "$CACHE_ROOT/python" "$CACHE_ROOT/tmp" -R
+
+podman pull ubuntu:latest
 podman build \
 	-t kendryte/k510_env:latest \
-	--volume "$HOME/cache/k510_buildroot/apt:/var/cache/apt" \
-	--volume "$HOME/cache/k510_buildroot/apt-lists:/var/lib/apt" \
-	--volume "$HOME/cache/k510_buildroot/python:/root/.cache" \
-	--volume "$HOME/cache/k510_buildroot/tmp:/tmp" \
+	--volume "$CACHE_ROOT/apt:/var/cache/apt" \
+	--volume "$CACHE_ROOT/apt-lists:/var/lib/apt" \
+	--volume "$CACHE_ROOT/python:/root/.cache" \
+	--volume "$CACHE_ROOT/tmp:/tmp" \
 	--volume "$(pwd):/tmp/build" \
 	-f ./Dockerfile \
 	.
