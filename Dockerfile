@@ -19,7 +19,7 @@ RUN wget -O- https://bootstrap.pypa.io/get-pip.py | python3 \
 
 RUN mkdir -p /opt/k510_buildroot /opt/build-cache \
 	&& ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-	&& chmod 0777 ~ -R
+	&& chmod 0777 /root -R
 VOLUME /opt/k510_buildroot /opt/build-cache
 WORKDIR /opt/k510_buildroot
 
