@@ -1,4 +1,4 @@
-name: 生成并发布镜像
+name: 制作镜像
 on:
   workflow_dispatch:
     inputs:

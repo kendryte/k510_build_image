@@ -18,7 +18,8 @@ RUN wget -O- https://bootstrap.pypa.io/get-pip.py | python3 \
 	&& pip3 install onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 /tmp/build/nncase_*.whl
 
 RUN mkdir -p /opt/k510_buildroot /opt/build-cache \
-	&& ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+	&& ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+	&& chmod 0777 ~ -R
 VOLUME /opt/k510_buildroot /opt/build-cache
 WORKDIR /opt/k510_buildroot
 
