@@ -15,7 +15,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
 RUN wget -O- https://bootstrap.pypa.io/get-pip.py | python3 \
 	&& wget -O- https://bootstrap.pypa.io/pip/2.7/get-pip.py | python \
 	&& python -m pip install pycryptodome \
-	&& pip3 install onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 /tmp/build/nncase_*.whl
+	&& pip3 install pycryptodome onnx==1.9.0 onnx-simplifier==0.3.6 onnxoptimizer==0.2.6 onnxruntime==1.8.0 /tmp/build/nncase_*.whl
 
 RUN mkdir -p /opt/k510_buildroot /opt/build-cache \
 	&& ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
