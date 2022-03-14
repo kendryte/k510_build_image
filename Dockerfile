@@ -5,7 +5,7 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean \
 	&& dpkg --add-architecture i386 \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		build-essential apt software-properties-common ccache file git wget cpio dosfstools mtools unzip rsync bc ncurses-dev
+		build-essential apt software-properties-common ccache file git wget cpio dosfstools mtools unzip rsync bc ncurses-dev mtd-utils
 
 RUN add-apt-repository ppa:deadsnakes/ppa \
 	&& apt-get install -y --no-install-recommends \
