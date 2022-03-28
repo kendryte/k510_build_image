@@ -58,6 +58,11 @@ jobs:
           bash ci/login.sh
           bash ci/nncase.sh
 
+      - name: "更新ubuntu镜像"
+        shell: bash
+        timeout-minutes: 1
+        run: podman pull "ubuntu:latest"
+
       # - name: "从ghcr.io获取上次生成的镜像"
       #   shell: bash
       #   if: github.event.inputs.brandNew == ''
