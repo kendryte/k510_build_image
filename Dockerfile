@@ -5,7 +5,7 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean \
 	&& dpkg --add-architecture i386 \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		build-essential apt software-properties-common ccache file git wget cpio dosfstools mtools unzip rsync bc ncurses-dev mtd-utils
+		build-essential apt software-properties-common ccache file git git-lfs wget cpio dosfstools mtools unzip rsync bc ncurses-dev mtd-utils
 
 RUN add-apt-repository ppa:deadsnakes/ppa \
 	&& apt-get install -y --no-install-recommends \
@@ -24,4 +24,6 @@ VOLUME /opt/k510_buildroot /opt/build-cache
 WORKDIR /opt/k510_buildroot
 
 RUN echo 'PS1="[\[\e[38;5;27m\]CAN\[\e[0m\] \W]$ "' >>/root/.bashrc \
-	&& ln -s /opt/k510_buildroot ~/k510_buildroot
+	&& ln -s /opt/k510_buildroot ~/k510_buildroot \
+	&& mkdir -p ~/.ssh && cp /tmp/build/test_user_key.rsa ~/.ssh/id_rsa \
+	&& chmod 0700 ~/.ssh && chmod 0600 ~/.ssh/id_rsa
