@@ -12,7 +12,4 @@ ln -s /opt/k510_buildroot ~/k510_buildroot
 chmod 0777 /root -R
 
 mkdir -p /root/.ssh
-cp /tmp/test_user_key.rsa /root/.ssh/id_rsa
-
 chmod 0700 /root/.ssh
-chmod 0600 /root/.ssh/id_rsa

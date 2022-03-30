@@ -25,5 +25,4 @@ WORKDIR /opt/k510_buildroot
 
 RUN echo 'PS1="[\[\e[38;5;27m\]CAN\[\e[0m\] \W]$ "' >>/root/.bashrc \
 	&& ln -s /opt/k510_buildroot ~/k510_buildroot \
-	&& mkdir -p ~/.ssh && cp /tmp/build/test_user_key.rsa ~/.ssh/id_rsa \
 	&& chmod 0700 ~/.ssh && chmod 0600 ~/.ssh/id_rsa

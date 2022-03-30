@@ -55,8 +55,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          bash ci/login.sh
-          bash ci/nncase.sh
+          bash scripts/login.sh
+          bash scripts/nncase.sh
 
       - name: "更新ubuntu镜像"
         shell: bash
@@ -72,7 +72,7 @@ jobs:
       - name: "运行构建过程"
         shell: bash
         timeout-minutes: 5
-        run: ci/build.sh
+        run: scripts/build.sh
 
       - name: "发布镜像"
         timeout-minutes: 2
