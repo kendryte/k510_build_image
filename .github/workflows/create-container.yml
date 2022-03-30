@@ -14,6 +14,7 @@ on:
 
 env:
   PROJECT_NAME: "k510_build_env"
+  DOCKER_CACHE_CENTER: "docker://ghcr.io/kendryte/k510_env__cache"
 
 jobs:
   cancel:

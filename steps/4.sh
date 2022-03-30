@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-RUN wget -O- https://bootstrap.pypa.io/get-pip.py | python3
+wget -O- https://bootstrap.pypa.io/get-pip.py | python3
 wget -O- https://bootstrap.pypa.io/pip/2.7/get-pip.py | python
 python -m pip install pycryptodome
 pip3 install --cache-dir /var/cache/pip --no-input \

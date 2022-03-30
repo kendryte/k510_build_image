@@ -31,7 +31,9 @@ STEP="安装K510编译依赖"
 buildah_cache_run "k510_builder" ./steps/3.sh
 
 STEP="安装python相关包"
-buildah_cache_run "k510_builder" ./steps/4.sh "$SYSTEM_COMMON_CACHE/pip:/var/cache/pip" "$CURRENT_DIR/nncase_dist/nncase.whl:/tmp/nncase.whl:ro" --
+buildah_cache_run "k510_builder" ./steps/4.sh \
+	--volume="$SYSTEM_COMMON_CACHE/pip:/var/cache/pip" \
+	--volume="$CURRENT_DIR/nncase_dist/nncase.whl:/tmp/nncase.whl:ro" --
 
 STEP="清理工作"
 buildah_cache_run "k510_builder" ./steps/5.sh
